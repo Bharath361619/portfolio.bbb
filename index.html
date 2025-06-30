@@ -1,0 +1,1702 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bharath Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+            color: #ffffff;
+            line-height: 1.6;
+        }
+
+        :root {
+            --primary-color: #000000;
+            --secondary-color: #ff0000;
+            --accent-color: #ff0000;
+            --hover-accent: #cc0000;
+            --text-light: #ffffff;
+            --text-secondary: #cccccc;
+            --text-tertiary: #999999;
+            --text-muted: #4a4a4a;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 16px;
+        }
+
+        .nav-link {
+            position: relative;
+            color: var(--text-light);
+            text-decoration: none;
+        }
+
+        .nav-link:hover {
+            color: var(--accent-color);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: var(--accent-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .project-card {
+            background-color: #2a2a2a;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+        }
+
+        .category-btn {
+            padding: 8px 20px;
+            border-radius: 9999px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background-color: #e5e7eb;
+            color: #1f2937;
+        }
+
+        .category-btn:hover {
+            background-color: #d1d5db;
+        }
+
+        .category-btn.active {
+            background-color: var(--accent-color);
+            color: var(--text-light);
+        }
+
+        .project-section {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .project-section.active {
+            display: block;
+        }
+
+        .about-container {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 0 20px;
+        }
+
+        .about-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .about-header h1 {
+            font-size: 2.5rem;
+            color: var(--accent-color);
+            margin-bottom: 10px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .about-header h1::after {
+            content: '';
+            position: absolute;
+            width: 60%;
+            height: 3px;
+            background-color: var(--accent-color);
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        .about-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            align-items: center;
+            background-color: #2a2a2a;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        .about-image {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .profile-img {
+            padding-left: 50px;
+            width: 600px;
+            height: 500px;
+            display: block;
+        }
+
+        .about-details {
+            flex: 1;
+            min-width: 300px;
+            padding: 40px;
+        }
+
+        .about-details h2 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: var(--text-light);
+        }
+
+        .about-details p {
+            margin-bottom: 20px;
+            color: var(--text-secondary);
+        }
+
+        .about-details button {
+            width: 40%;
+            height: 6vh;
+            margin: 30px 0;
+            background-color: #ff0000;
+            color: #fff;
+            border: none;
+            outline: none;
+            font-size: 100%;
+            font-weight: 700;
+            border-radius: 5px;
+            transition: 0.2s linear;
+        }
+
+        .about-details button:hover {
+            scale: 1.1;
+            color: #ffffff;
+            border: 2px solid #090909;
+            background-color: transparent;
+            font-weight: 700;
+            box-shadow: 0 0 40px #d5d5d4;
+        }
+
+
+        .highlight {
+            color: var(--accent-color);
+            font-weight: 500;
+        }
+
+        .education h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: var(--text-light);
+            position: relative;
+            display: inline-block;
+        }
+
+        .education h3::after {
+            content: '';
+            position: absolute;
+            width: 50%;
+            height: 2px;
+            background-color: var(--accent-color);
+            bottom: -5px;
+            left: 0;
+            border-radius: 2px;
+        }
+
+        .education-item {
+            margin-bottom: 20px;
+            padding-left: 20px;
+            border-left: 2px solid var(--text-muted);
+            position: relative;
+        }
+
+        .education-item::before {
+            content: '';
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background-color: var(--accent-color);
+            border-radius: 50%;
+            left: -7px;
+            top: 6px;
+        }
+
+        .education-item h4 {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+            color: var(--text-light);
+        }
+
+        .education-item p {
+            font-size: 0.95rem;
+            margin-bottom: 5px;
+            color: var(--text-secondary);
+        }
+
+        .education-item .year {
+            font-size: 0.85rem;
+            color: var(--text-tertiary);
+        }
+
+        .skill-progress {
+            transition: width 1.5s ease-in-out;
+        }
+
+        .contact-input {
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: var(--text-light);
+            padding: 8px 16px;
+            border-radius: 8px;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .contact-input:focus {
+            background-color: rgba(255, 255, 255, 0.15);
+            border-color: var(--accent-color);
+            outline: none;
+        }
+
+
+        .btn-primary {
+            background-color: var(--accent-color);
+            color: var(--text-light);
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 500;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--hover-accent);
+            transform: translateY(-2px);
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-light);
+            text-decoration: none;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        .social-icon:hover {
+            transform: translateY(-3px);
+            color: var(--hover-accent);
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--primary-color);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--secondary-color);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--hover-accent);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .about-content {
+                flex-direction: column;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .nav-links.active {
+                display: flex;
+                flex-direction: column;
+            }
+        }
+
+        nav {
+            position: fixed;
+            width: 100%;
+            z-index: 10;
+            backdrop-filter: blur(10px);
+            background-color: rgba(0, 0, 0, 0.8);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-light);
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--accent-color);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+        }
+
+        .mobile-menu-button {
+            display: none;
+            color: var(--text-light);
+            font-size: 1.25rem;
+            cursor: pointer;
+        }
+
+        .mobile-menu {
+            display: none;
+            padding-bottom: 8px;
+        }
+
+        .mobile-menu a {
+            display: block;
+            padding: 8px 16px;
+            color: var(--text-light);
+            text-decoration: none;
+        }
+
+        .mobile-menu a:hover {
+            color: var(--accent-color);
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu-button {
+                display: block;
+            }
+
+            .mobile-menu.active {
+                display: block;
+            }
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding-top: 64px;
+            background-color: var(--primary-color);
+        }
+
+        .hero-content {
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .hero h1 span {
+            color: var(--accent-color);
+        }
+
+        .hero h2 {
+            font-size: 1.75rem;
+            margin-bottom: 24px;
+        }
+
+        .hero p {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 32px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+        }
+
+        .btn-secondary {
+            padding: 12px 24px;
+            border: 1px solid var(--text-light);
+            border-radius: 8px;
+            color: var(--text-light);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+        }
+
+        @media (min-width: 768px) {
+            .hero h1 {
+                font-size: 3.75rem;
+            }
+
+            .hero h2 {
+                font-size: 2rem;
+            }
+        }
+
+        .skills {
+            padding: 80px 0;
+            background-color: rgba(0, 0, 0, 0.3);
+        }
+
+        .skills h2 {
+            font-size: 2.25rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .skills h2 span {
+            color: var(--accent-color);
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 40px;
+        }
+
+        .skills h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 24px;
+            color: var(--text-light);
+        }
+
+        .skill-item {
+            margin-bottom: 16px;
+        }
+
+        .skill-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 4px;
+        }
+
+        .skill-bar {
+            width: 100%;
+            background-color: var(--text-muted);
+            border-radius: 9999px;
+            height: 10px;
+        }
+
+        .skill-progress {
+            background-color: var(--accent-color);
+            height: 100%;
+            border-radius: 9999px;
+        }
+
+        @media (min-width: 768px) {
+            .skills-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .skills h2 {
+                font-size: 2.5rem;
+            }
+        }
+
+        .projects {
+            padding: 48px 0;
+        }
+
+        .projects h1 {
+            font-size: 2.25rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 8px;
+        }
+
+        .projects p {
+            text-align: center;
+            color: #6b7280;
+            margin-bottom: 40px;
+        }
+
+        .categories {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 48px;
+        }
+
+        .project-section h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #ff0000;
+            margin-bottom: 24px;
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 32px;
+        }
+
+        .project-card {
+            background-color: #000000;
+            color: #1f2937;
+        }
+
+        .project-image {
+            height: 192px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .project-content {
+            padding: 24px;
+        }
+
+        .project-content h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .project-content p {
+            color: #ffffff;
+            margin-bottom: 16px;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .project-tag {
+            padding: 4px 12px;
+            background-color: rgba(79, 70, 229, 0.1);
+            color: #ff0000;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+        }
+
+        .project-link {
+            color: #ff0000;
+            font-weight: 500;
+            text-decoration: none;
+        }
+
+        .project-link:hover {
+            color: #ff0000;
+        }
+
+        @media (min-width: 768px) {
+            .project-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .project-grid {
+                grid-template-columns: 1fr 1fr 1fr;
+            }
+        }
+
+        .contact {
+            padding: 80px 0;
+            background-color: rgba(0, 0, 0, 0.3);
+        }
+
+        .contact h2 {
+            font-size: 2.25rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .contact h2 span {
+            color: var(--accent-color);
+        }
+
+        .contact-content {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        .contact-info h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 24px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 24px;
+        }
+
+        .contact-icon {
+            background-color: rgba(0, 0, 0, 0.2);
+            padding: 12px;
+            border-radius: 8px;
+            margin-right: 16px;
+        }
+
+        .contact-icon svg {
+            width: 20px;
+            height: 20px;
+            fill: var(--accent-color);
+        }
+
+        .contact-details h4 {
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+
+        .contact-details p {
+            color: #d1d5db;
+        }
+
+        .contact-social {
+            display: flex;
+            gap: 16px;
+        }
+
+        .contact-form {
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 24px;
+            border-radius: 8px;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+        }
+
+        @media (min-width: 768px) {
+            .contact-content {
+                flex-direction: row;
+            }
+
+            .contact-info,
+            .contact-form {
+                width: 50%;
+            }
+
+            .contact h2 {
+                font-size: 2.5rem;
+            }
+        }
+
+        footer {
+            padding: 24px 0;
+            background-color: var(--primary-color);
+            text-align: center;
+        }
+
+        footer p {
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+        }
+
+        .footer-links a {
+            color: var(--text-light);
+            text-decoration: none;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-color);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container nav-content">
+            <a href="#" class="logo">
+                <span>Port</span>folio
+            </a>
+
+            <div class="nav-links">
+                <a href="#home" class="nav-link">Home</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#skills" class="nav-link">Skills</a>
+                <a href="#projects" class="nav-link">Projects</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </div>
+
+            <button id="mobile-menu-button" class="mobile-menu-button">☰</button>
+        </div>
+
+        <div id="mobile-menu" class="mobile-menu container">
+            <a href="#home" class="nav-link">Home</a>
+            <a href="#about" class="nav-link">About</a>
+            <a href="#skills" class="nav-link">Skills</a>
+            <a href="#projects" class="nav-link">Projects</a>
+            <a href="#contact" class="nav-link">Contact</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero section">
+        <div class="container hero-content">
+            <h1>Hi, I'm <span>Bharath</span></h1>
+            <h2>UI/UX Developer</h2>
+            <p>
+                To obtain a UI/UX designer role where I can apply my creativity
+                and skills in design tools like Figma, Photoshop, and Illustrator,
+                while continuously learning and grow professionally in a
+                collaborative team environment.
+            </p>
+            <div class="hero-buttons">
+                <a href="#contact" class="btn-primary">Get in Touch</a>
+                <a href="#projects" class="btn-secondary">View My Work</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <div id="about" class="about-container section">
+        <div class="about-header">
+            <h1>About Me</h1>
+        </div>
+
+        <div class="about-content">
+            <div class="about-image">
+                <img src="picc.jpg" alt="Bharath Profile" class="profile-img">
+            </div>
+
+            <div class="about-details">
+                <h2>Hello, I'm <span class="highlight">Bharath</span></h2>
+                <p>I am a passionate web developer with expertise in creating beautiful, functional, and responsive
+                    websites. With over 5 years of experience in the industry, I've worked on a variety of projects
+                    ranging from small business websites to complex web applications.</p>
+                <div class="btn" data-aos="zoom-out-left" data-aos-duration="1000" data-aos-delay="1300">
+                    <a href="Bharath_UIUX Resume.pdf" target="_blank">
+                        <button>Download CV</button></a>
+                </div>
+                <div class="education">
+                    <h3>Education</h3>
+
+                    <div class="education-item">
+                        <h4>B.Tech in Mechanical</h4>
+                        <p>SRKR Engineering College</p>
+                        <p class="year">2019 - 2023</p>
+                    </div>
+
+                    <div class="education-item">
+                        <h4>Intermediate</h4>
+                        <p>Narayana Junior College</p>
+                        <p class="year">2017 - 2019</p>
+                    </div>
+
+                    <div class="education-item">
+                        <h4>SSC </h4>
+                        <p>Victory High School</p>
+                        <p class="year">2016 - 2017</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Skills Section -->
+    <section id="skills" class="skills section">
+        <div class="container">
+            <h2>My <span>Skills</span></h2>
+
+            <div class="skills-grid">
+                <div>
+                    <h3>Programming Skills</h3>
+
+                    <div class="skill-item">
+                        <div class="skill-label">
+                            <span>HTML</span>
+                            <span>90%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 0%;" data-width="90%"></div>
+                        </div>
+                    </div>
+
+                    <div class="skill-item">
+                        <div class="skill-label">
+                            <span>CSS</span>
+                            <span>85%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 0%;" data-width="85%"></div>
+                        </div>
+                    </div>
+
+                    <div class="skill-item">
+                        <div class="skill-label">
+                            <span>JAVASCRIPT</span>
+                            <span>80%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 0%;" data-width="80%"></div>
+                        </div>
+                    </div>
+
+                    <div class="skill-item">
+                        <div class="skill-label">
+                            <span>BOOTSTRAP</span>
+                            <span>85%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 0%;" data-width="85%"></div>
+                        </div>
+                    </div>
+
+                    <div class="skill-item">
+                        <div class="skill-label">
+                            <span>REACT JS</span>
+                            <span>75%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 0%;" data-width="75%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h3>Designing Skills</h3>
+
+                    <div class="skill-item">
+                        <div class="skill-label">
+                            <span>ILLUSTRATOR</span>
+                            <span>85%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 0%;" data-width="85%"></div>
+                        </div>
+                    </div>
+
+                    <div class="skill-item">
+                        <div class="skill-label">
+                            <span>PHOTOSHOP</span>
+                            <span>95%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 0%;" data-width="95%"></div>
+                        </div>
+                    </div>
+
+                    <div class="skill-item">
+                        <div class="skill-label">
+                            <span>WORDPRESS</span>
+                            <span>70%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 0%;" data-width="70%"></div>
+                        </div>
+                    </div>
+
+                    <div class="skill-item">
+                        <div class="skill-label">
+                            <span>FIGMA</span>
+                            <span>75%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 0%;" data-width="75%"></div>
+                        </div>
+                    </div>
+
+                    <div class="skill-item">
+                        <div class="skill-label">
+                            <span>RESPONSIVE DESIGN</span>
+                            <span>80%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 0%;" data-width="80%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <div id="projects" class="projects section">
+        <div class="container">
+            <h1>My Projects</h1>
+            <p>Explore my work across different technologies</p>
+
+            <div class="categories">
+                <button class="category-btn active" data-category="html">HTML & CSS</button>
+                <button class="category-btn" data-category="css">JAVASCRIPT</button>
+                <button class="category-btn" data-category="javascript">BOOTSTRAP</button>
+                <button class="category-btn" data-category="react">WORDPRESS</button>
+                <button class="category-btn" data-category="node">ILLUSTRATOR</button>
+                <button class="category-btn" data-category="python">PHOTOSHOP</button>
+                <button class="category-btn" data-category="mobile">FIGMA</button>
+            </div>
+
+            <!-- HTML Projects Section -->
+            <div id="html-projects" class="project-section active">
+                <h2>HTML & CSS Projects</h2>
+                <div class="project-grid">
+                    <div class="project-card">
+                        <div class="project-image" style="background-color: #e0e7ff;">
+                            <!-- <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="#4f46e5" viewBox="0 0 24 24"> -->
+                            <!-- <path d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/> -->
+                            <!-- </svg> -->
+                            <img src="TRAVEL.png" alt="dsferwy" style="width: 500px; height: 200px;">
+                        </div>
+                        <div class="project-content">
+                            <h3 style="color: white;">Travel Schedule Page</h3>
+                            <p>A clean, modern Travel Schedule page built with HTML & CSS elements.</p>
+                            <div class="project-tags">
+                                <span class="project-tag">HTML</span>
+                                <span class="project-tag">CSS</span>
+                                <!-- <span class="project-tag">Accessibility</span> -->
+                            </div>
+                            <a href="https://bharath361619.github.io/html-css/" class="project-link"
+                                target="_blank">View Project →</a>
+                        </div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-image" style="background-color: #e0e7ff;">
+                            <!-- <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="#4f46e5" viewBox="0 0 24 24">
+                                <path d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                            </svg> -->
+                            <img src="barcakk.jpg" alt="dsferwy" style="width: 500px; height: 200px;">
+                        </div>
+                        <div class="project-content">
+                            <h3 style="color: white;">Landing Page</h3>
+                            <p>A customizable Landing Page with clean HTML & CSS structure.</p>
+                            <div class="project-tags">
+                                <span class="project-tag">HTML</span>
+                                <span class="project-tag">CSS</span>
+                                <!-- <span class="project-tag">SEO</span> -->
+                            </div>
+                            <a href="https://bharath361619.github.io/HTML-CSS-2/" target="_blank"
+                                class="project-link">View Project →</a>
+                        </div>
+                    </div>
+
+                    <!-- <div class="project-card"> -->
+                    <!-- <div class="project-image" style="background-color: #e0e7ff;"> -->
+                    <!-- <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="#4f46e5" viewBox="0 0 24 24">
+                                <path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                            </svg> -->
+                    <!-- <img src="blck nd white.jpg" alt="dsferwy" style="width: 500px; height: 200px;">
+                        </div>
+                        <div class="project-content">
+                            <h3>Event Registration Page</h3>
+                            <p>A comprehensive event registration page with form validation.</p>
+                            <div class="project-tags">
+                                <span class="project-tag">HTML5</span>
+                                <span class="project-tag">Forms</span>
+                                <span class="project-tag">Tables</span>
+                            </div>
+                            <a href="#" class="project-link">View Project →</a>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+
+            <!-- CSS Projects Section -->
+            <div id="css-projects" class="project-section">
+                <h2>JAVASCRIPT PROJECTS</h2>
+                <div class="project-grid">
+                    <div class="project-card">
+                        <div class="project-image" style="background-color: #fce7f3;">
+                            <!-- <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="#ec4899" viewBox="0 0 24 24">
+                                <path d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                            </svg> -->
+                            <img src="tic tac toe.png" alt="dsferwy" style="width: 500px; height: 200px;">
+                        </div>
+                        <div class="project-content">
+                            <h3 style="color: white;">TIC TAC TOE</h3>
+                            <p> A simple two-player game where players take turns marking X or O on a 3x3 grid.</p>
+                            <div class="project-tags" style="background-color: #fdf2f8; color: #000000;">
+                                <span class="project-tag">HTML</span>
+                                <span class="project-tag">CSS</span>
+                                <span class="project-tag">JavaScript</span>
+                            </div>
+                            <a href="https://bharath361619.github.io/javascript/" class="project-link"
+                                target="_blank style=" color: #ec4899;>View Project →</a>
+                        </div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-image" style="background-color: #fce7f3;">
+                            <!-- <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="#ec4899" viewBox="0 0 24 24">
+                                <path d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"/>
+                            </svg> -->
+                            <img src="calculator.png" alt="dsferwy" style="width: 500px; height: 200px;">
+                        </div>
+                        <div class="project-content">
+                            <h3 style="color: white;">Calculator</h3>
+                            <p>It is used to perform basic arithmetic operations like addition, subtraction, multiplication, and division.</p>
+                            <div class="project-tags" style="background-color: #fdf2f8; color: #000000;">
+                                <span class="project-tag">HTML</span>
+                                <span class="project-tag">CSS</span>
+                                <span class="project-tag">JavaScript</span>
+                            </div>
+                            <a href="https://bharath361619.github.io/javascript2/" class="project-link"
+                                target="_blank style=" style="color:red;">View Project →</a>
+                        </div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-image" style="background-color: #fce7f3;">
+                            <!-- <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="#ec4899" viewBox="0 0 24 24">
+                                <path d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/>
+                            </svg> -->
+                            <img src="js3.png" alt="dsferwy" style="width: 500px; height: 200px;">
+                        </div>
+                        <div class="project-content">
+                            <h3 style="color: white;">To Do List</h3>
+                            <p> A simple task management tool that helps you organize and track tasks you need to complete.</p>
+                            <div class="project-tags" style="background-color: #fdf2f8; color: #ec4899;">
+                                <span class="project-tag">HTML</span>
+                                <span class="project-tag">CSS</span>
+                                <span class="project-tag">JavaScript</span>
+                            </div>
+                            <a href="https://bharath361619.github.io/javascript3/" class="project-link" target="_blank"
+                                style="color: #ff0000;">View Project →</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- JavaScript Projects Section -->
+            <div id="javascript-projects" class="project-section">
+                <h2>BOOTSTRAP Projects</h2>
+                <div class="project-grid">
+                    <div class="project-card">
+                        <div class="project-image" style="background-color: #fef9c3;">
+                            <!-- <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="#eab308" viewBox="0 0 24 24">
+                                <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+                            </svg> -->
+                            <img src="coffee.png" alt="dsferwy" style="width: 500px; height: 200px;">
+                        </div>
+                        <div class="project-content">
+                            <h3 style="color: white;">Coffee Shop</h3>
+                            <p>Website built with Bootstrap, featuring menu section, and contact form for an engaging user experience.</p>
+                            <div class="project-tags" style="background-color: #fefce8; color: #000000;">
+                                <span class="project-tag">Bootstrap</span>
+                                <!-- <span class="project-tag">LocalStorage</span> -->
+                                <!-- <span class="project-tag">DOM</span> -->
+                            </div>
+                            <a href="https://bharath361619.github.io/bootstrap/" class="project-link" target="_blank"
+                                style="color: #ff0000;">View Project →</a>
+                        </div>
+                    </div>
+
+                    <!-- <div class="project-card"> -->
+                    <!-- <div class="project-image" style="background-color: #fef9c3;"> -->
+                    <!-- <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="#eab308" viewBox="0 0 24 24">
+                                <path d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/>
+                                <path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg> -->
+                    <!-- <img src="blck nd white.jpg" alt="dsferwy" style="width: 500px; height: 200px;">
+                        </div>
+                        <div class="project-content">
+                            <h3>Interactive Quiz</h3>
+                            <p>A dynamic quiz application with timer and score tracking.</p>
+                            <div class="project-tags" style="background-color: #fefce8; color: #eab308;">
+                                <span class="project-tag">JavaScript</span>
+                                <span class="project-tag">ES6</span>
+                                <span class="project-tag">Events</span>
+                            </div>
+                            <a href="#" class="project-link" style="color: #eab308;">View Project →</a>
+                        </div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-image" style="background-color: #fef9c3;"> -->
+                    <!-- <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="#eab308" viewBox="0 0 24 24">
+                                <path d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/>
+                            </svg> -->
+                    <!-- <img src="blck nd white.jpg" alt="dsferwy" style="width: 500px; height: 200px;">
+                        </div>
+                        <div class="project-content">
+                            <h3>Budget Calculator</h3>
+                            <p>A financial tracker with income/expense management and data visualization.</p>
+                            <div class="project-tags" style="background-color: #fefce8; color: #eab308;">
+                                <span class="project-tag">JavaScript</span>
+                                <span class="project-tag">OOP</span>
+                                <span class="project-tag">Math</span>
+                            </div>
+                            <a href="#" class="project-link" style="color: #eab308;">View Project →</a>
+                        </div> -->
+                </div>
+            </div>
+        </div>
+
+        <!-- React Projects Section -->
+        <div id="react-projects" class="project-section">
+            <h2 style="margin-left: 20px;">WORDPRESS Projects</h2>
+            <div class="project-grid" style="margin-left: 20px;">
+                <div class="project-card">
+                    <div class="project-image" style="background-color: #dbeafe;">
+                        <!-- <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="#3b82f6" viewBox="0 0 24 24">
+                                <path d="M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                            </svg> -->
+                        <img src="travel ag.png" alt="dsferwy" style="width: 500px; height: 200px;">
+                    </div>
+                    <div class="project-content">
+                        <h3 style="color: white;">Travel Website</h3>
+                        <p>A platform that provides information, inspiration for destinations, helping users plan and organize their trips.</p>
+                        <div class="project-tags" style="background-color: #eff6ff; color: #000000;">
+                            <span class="project-tag">Wordpress</span>
+                            <!-- <span class="project-tag">Hooks</span> -->
+                            <!-- <span class="project-tag">Charts</span> -->
+                        </div>
+                        <a href="https://dev-bharath-p.pantheonsite.io/" class="project-link" target="_blank"
+                            style="color: #ff0101;">View Project →</a>
+                    </div>
+                </div>
+
+                <!-- <div class="project-card"> -->
+                <!-- <div class="project-image" style="background-color: #dbeafe;"> -->
+                <!-- <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="#3b82f6" viewBox="0 0 24 24">
+                                <path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
+                            </svg> -->
+                <!-- <img src="blck nd white.jpg" alt="dsferwy" style="width: 500px; height: 200px;">
+                        </div>
+                        <div class="project-content">
+                            <h3>E-commerce Platform</h3>
+                            <p>A modern e-commerce interface with product filtering and cart functionality.</p>
+                            <div class="project-tags" style="background-color: #eff6ff; color: #3b82f6;">
+                                <span class="project-tag">React</span>
+                                <span class="project-tag">Redux</span>
+                                <span class="project-tag">Router</span>
+                            </div>
+                            <a href="#" class="project-link" style="color: #3b82f6;">View Project →</a>
+                        </div>
+                    </div> -->
+
+                <!-- <div class="project-card"> -->
+                <!-- <div class="project-image" style="background-color: #dbeafe;"> -->
+                <!-- <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="#3b82f6" viewBox="0 0 24 24">
+                                <path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                            </svg> -->
+                <!-- <img src="blck nd white.jpg" alt="dsferwy" style="width: 500px; height: 200px;">
+                        </div>
+                        <div class="project-content">
+                            <h3>Social Media App</h3>
+                            <p>A social networking application with real-time updates and user profiles.</p>
+                            <div class="project-tags" style="background-color: #eff6ff; color: #3b82f6;">
+                                <span class="project-tag">React</span>
+                                <span class="project-tag">Context API</span>
+                                <span class="project-tag">Firebase</span>
+                            </div>
+                            <a href="#" class="project-link" style="color: #3b82f6;">View Project →</a>
+                        </div> -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Node.js Projects Section -->
+    <div id="node-projects" class="project-section">
+        <h2 style="margin-left: 20px; margin-top: -40px">ILLUSTRATOR Projects</h2>
+        <div class="project-grid" style="margin-left: 20px;">
+            <div class="project-card">
+                <div class="project-image" style="background-color: #d1fae5;">
+                    <!-- <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="#10b981" viewBox="0 0 24 24">
+                                <path d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"/>
+                            </svg> -->
+                    <img src="stationery.jpg" alt="dsferwy" style="width: 450px; height: 200px;">
+                </div>
+                <div class="project-content">
+                    <h3 style="color: white;">Sports Stationery Set</h3>
+                    <p>A stationery set for sports created by using Adobe Illustrator.</p>
+                    <div class="project-tags" style="background-color: #ecfdf5; color: #10b981;">
+                        <span class="project-tag">Illustrator</span>
+                        <!-- <span class="project-tag">Express</span> -->
+                        <!-- <span class="project-tag">MongoDB</span> -->
+                    </div>
+                    <a href="adobe.bbb.pdf" class="project-link" target="_blank" style="color: #ff0000;">View Project →</a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-image" style="background-color: #d1fae5;">
+                    <!-- <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="#10b981" viewBox="0 0 24 24">
+                                <path d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+                            </svg> -->
+                    <img src="brand.jpg" alt="dsferwy" style="width: 500px; height: 200px;">
+                </div>
+                <div class="project-content">
+                    <h3 style="color: white;">Branding Guidelines</h3>
+                    <p>Branding guidelines including Typography and Colour Paletts.</p>
+                    <div class="project-tags" style="background-color: #ecfdf5; color: #10b981;">
+                        <span class="project-tag">Illustrator</span>
+                        <!-- <span class="project-tag">Socket.io</span> -->
+                        <!-- <span class="project-tag">Redis</span> -->
+                    </div>
+                    <a href="bharath adobe illustrator web.pdf" class="project-link" target="_blank"
+                        style="color: #ff0000;">View Project →</a>
+                </div>
+            </div>
+
+            <!-- <div class="project-card"> -->
+            <!-- <div class="project-image" style="background-color: #d1fae5;"> -->
+            <!-- <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="#10b981" viewBox="0 0 24 24">
+                                <path d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
+                            </svg> -->
+            <!-- <img src="blck nd white.jpg" alt="dsferwy" style="width: 500px; height: 200px;">
+                        </div>
+                        <div class="project-content">
+                            <h3>Content Management System</h3>
+                            <p>A headless CMS with content modeling, API access, and user roles.</p>
+                            <div class="project-tags" style="background-color: #ecfdf5; color: #10b981;">
+                                <span class="project-tag">Node.js</span>
+                                <span class="project-tag">GraphQL</span>
+                                <span class="project-tag">JWT</span>
+                            </div>
+                            <a href="#" class="project-link" style="color: #10b981;">View Project →</a>
+                        </div>
+                    </div> -->
+        </div>
+    </div>
+
+    <!-- Python Projects Section -->
+    <div id="python-projects" class="project-section">
+        <h2 style="margin-left: 20px; margin-top: -40px">PHOTOSHOP Projects</h2>
+        <div class="project-grid" style="margin-left: 20px;">
+            <div class="project-card">
+                <div class="project-image" style="background-color: #f3e8ff;">
+                    <img src="stationeryps.jpg" alt="dsferwy" style="width: 500px; height: 200px;">
+                </div>
+                <div class="project-content">
+                    <h3 style="color: white;">Stationery Set</h3>
+                    <p>Stationery set including Business card and Adaptation.</p>
+                    <div class="project-tags" style="background-color: #faf5ff; color: #000000;">
+                        <span class="project-tag">Photoshop</span>
+                        <!-- <span class="project-tag">Flask</span> -->
+                        <!-- <span class="project-tag">Pandas</span> -->
+                    </div>
+                    <a href="psb.stationery.pdf" class="project-link" target="_blank" style="color: #ff0000;">View
+                        Project →</a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-image" style="background-color: #f3e8ff;">
+                    <img src="webps.png" alt="dsferwy" style="width: 500px; height: 200px;">
+                </div>
+                <div class="project-content">
+                    <h3 style="color: white;">Web Animations</h3>
+                    <p>Created two Web Animations using Photoshop.</p>
+                    <div class="project-tags" style="background-color: #faf5ff; color: #000000;">
+                        <span class="project-tag">Photoshop</span>
+                        <!-- <span class="project-tag">Flask</span> -->
+                        <!-- <span class="project-tag">Pandas</span> -->
+                    </div>
+                    <a href="ps5.gif" class="project-link" target="_blank" style="color: #ff0101;">Project 1 →</a>
+                    <a href="PS6.gif" class="project-link" target="_blank" style="color: #ff0000;">Project 2 →</a>
+                </div>
+            </div>
+
+            <!-- <div class="project-card"> -->
+                <!-- <div class="project-image" style="background-color: #f3e8ff;"> -->
+                    <!-- <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="#a855f7" viewBox="0 0 24 24">
+                                <path d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"/>
+                            </svg> -->
+                    <!-- <img src="flyerps.jpg" alt="dsferwy" style="width: 500px; height: 200px;">
+                </div>
+                <div class="project-content">
+                    <h3 style="color: white;">Flyer</h3>
+                    <p>Created two flyer's using Photoshop.</p>
+                    <div class="project-tags" style="background-color: #faf5ff; color: #000000;">
+                        <span class="project-tag">Photoshop</span> -->
+                        <!-- <span class="project-tag">Scikit-learn</span> -->
+                        <!-- <span class="project-tag">NLTK</span> -->
+                    <!-- </div>
+                    <a href="ps.pdf" class="project-link" target="_blank" style="color: #ff0000;">View Project →</a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-image" style="background-color: #f3e8ff;"> -->
+                    <!-- <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="#a855f7" viewBox="0 0 24 24">
+                                <path d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z"/>
+                            </svg> -->
+                    <!-- <img src="poster ps.png" alt="dsferwy" style="width: 500px; height: 200px;">
+                </div>
+                <div class="project-content">
+                    <h3 style="color: white;">Poster</h3>
+                    <p>Created a poster using Photoshop.</p>
+                    <div class="project-tags" style="background-color: #faf5ff; color: #000000;">
+                        <span class="project-tag">Photoshop</span> -->
+                        <!-- <span class="project-tag">Selenium</span> -->
+                        <!-- <span class="project-tag">BeautifulSoup</span> -->
+                    <!-- </div>
+                    <a href="PS3.B.pdf" class="project-link" target="_blank" style="color: #ff0000;">View Project →</a>
+                </div> -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Projects Section -->
+    <div id="mobile-projects" class="project-section">
+        <h2 style="margin-left: 20px; margin-top: -40px">FIGMA Projects</h2>
+        <div class="project-grid" style="margin-left: 20px;">
+            <div class="project-card">
+                <div class="project-image" style="background-color: #ffedd5;">
+                    <!-- <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="#f97316" viewBox="0 0 24 24">
+                                <path d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/>
+                            </svg> -->
+                    <img src="food.b.jpg" alt="dsferwy" style="width: 500px; height: 200px;">
+                </div>
+                <div class="project-content">
+                    <h3 style="color: white;">Food Delivery App</h3>
+                    <p>A user-friendly food delivery app designed for seamless ordering, real-time tracking, and secure payments.</p>
+                    <div class="project-tags" style="background-color: #fff7ed; color: #000000;">
+                        <span class="project-tag">Figma</span>
+                        <!-- <span class="project-tag">Redux</span> -->
+                        <!-- <span class="project-tag">Firebase</span> -->
+                    </div>
+                    <a href="https://www.figma.com/proto/tEMltKIv2Ff4dVPO4cYaAA/Untitled?node-id=1-117&p=f&t=eUrDjAzpDvvN2ax6-1&scaling=scale-down&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=1%3A117" class="project-link" target="_blank" style="color: #ff0000;">View Project →</a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-image" style="background-color: #ffedd5;">
+                    <!-- <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="#f97316" viewBox="0 0 24 24">
+                                <path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                            </svg> -->
+                    <img src="Rapido.b.jpg" alt="dsferwy" style="width: 500px; height: 200px;">
+                </div>
+                <div class="project-content">
+                    <h3 style="color: white;">Rapido App</h3>
+                    <p>A bike taxi booking app enabling fast, affordable, and reliable urban transportation with real-time tracking.</p>
+                    <div class="project-tags" style="background-color: #fff7ed; color: #000000;">
+                        <span class="project-tag">Figma</span>
+                        <!-- <span class="project-tag">Dart</span> -->
+                        <!-- <span class="project-tag">Firebase</span> -->
+                    </div>
+                    <a href="https://www.figma.com/proto/EAZNzDYx8G4eSb6ezPz90L/Untitled?node-id=10-584&t=OBBPk0HXXApHf3LG-1&scaling=scale-down&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=2%3A2" class="project-link" target="_blank" style="color: #ff0000;">View Project →</a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-image" style="background-color: #ffedd5;">
+                    <!-- <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="#f97316" viewBox="0 0 24 24">
+                                <path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                <path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            </svg> -->
+                    <img src="themes.b.webp" alt="dsferwy" style="width: 500px; height: 200px;">
+                </div>
+                <div class="project-content">
+                    <h3 style="color: white;">Themes App</h3>
+                    <p>A mobile app offering customizable themes, wallpapers, and icon packs to personalize the user’s device experience.</p>
+                    <div class="project-tags" style="background-color: #fff7ed; color: #000000;">
+                        <span class="project-tag">Figma</span>
+                        <!-- <span class="project-tag">SwiftUI</span> -->
+                        <!-- <span class="project-tag">MapKit</span> -->
+                    </div>
+                    <a href="https://www.figma.com/proto/eT0Z4wd1yurqXdQKA7reBW/Untitled?node-id=26-761&t=tsDD86j7CR7cYtqW-1&scaling=scale-down&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=1%3A2" class="project-link" target="_blank" style="color: #ff0000;">View Project →</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact section">
+        <div class="container">
+            <h2>Get In <span>Touch</span></h2>
+
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>Contact Information</h3>
+
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path
+                                    d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
+                            </svg>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Location</h4>
+                            <p>Srikakulam, Andhra Pradesh</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path
+                                    d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
+                            </svg>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Email</h4>
+                            <p>bharathkorukonda2000@gmail.com</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path
+                                    d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" />
+                            </svg>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Phone</h4>
+                            <p>+91 8688647829</p>
+                        </div>
+                    </div>
+
+                    <div class="flex space-x-4">
+                        <a href="#"
+                            class="social-icon bg-[var(--primary-color)] bg-opacity-20 w-10 h-10 rounded-full flex items-center justify-center">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="#"
+                            class="social-icon bg-[var(--primary-color)] bg-opacity-20 w-10 h-10 rounded-full flex items-center justify-center">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="#"
+                            class="social-icon bg-[var(--primary-color)] bg-opacity-20 w-10 h-10 rounded-full flex items-center justify-center">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#"
+                            class="social-icon bg-[var(--primary-color)] bg-opacity-20 w-10 h-10 rounded-full flex items-center justify-center">
+                            <i class="bi bi-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="contact-form">
+                    <form id="contact-form">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" class="contact-input" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" class="contact-input" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <input type="text" id="subject" class="contact-input" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" rows="4" class="contact-input" required></textarea>
+                        </div>
+
+                        <button type="submit" class="btn-primary">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>© 2025 Bharath. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+
+                window.scrollTo({
+                    top: targetElement.offsetTop - 70,
+                    behavior: 'smooth'
+                });
+
+                // Close mobile menu if open
+                if (mobileMenu.classList.contains('active')) {
+                    mobileMenu.classList.remove('active');
+                }
+            });
+        });
+
+        // Intersection Observer for section animations
+        const sections = document.querySelectorAll('.section');
+
+        const sectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        sections.forEach(section => {
+            sectionObserver.observe(section);
+        });
+
+        // Animate skill bars when in view
+        const skillsSection = document.getElementById('skills');
+        const skillBars = document.querySelectorAll('.skill-progress');
+
+        const skillsObserver = new IntersectionObserver((entries) => {
+            if (entries[0].isIntersecting) {
+                skillBars.forEach(bar => {
+                    const width = bar.getAttribute('data-width');
+                    bar.style.width = width;
+                });
+            }
+        }, { threshold: 0.5 });
+
+        skillsObserver.observe(skillsSection);
+
+        // Project category switching
+        document.addEventListener('DOMContentLoaded', function () {
+            const categoryButtons = document.querySelectorAll('.category-btn');
+            const projectSections = document.querySelectorAll('.project-section');
+
+            categoryButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    const category = this.getAttribute('data-category');
+
+                    // Update active button
+                    categoryButtons.forEach(btn => {
+                        btn.classList.remove('active');
+                        btn.style.backgroundColor = '#e5e7eb';
+                        btn.style.color = '#1f2937';
+                    });
+
+                    this.classList.add('active');
+                    this.style.backgroundColor = 'var(--accent-color)';
+                    this.style.color = 'var(--text-light)';
+
+                    // Show selected section
+                    projectSections.forEach(section => {
+                        section.classList.remove('active');
+                    });
+
+                    document.getElementById(`${category}-projects`).classList.add('active');
+                });
+            });
+        });
+
+        // Contact form submission
+        const contactForm = document.getElementById('contact-form');
+
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            // Get form values
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+
+            // In a real application, you would send this data to a server
+            // For demo purposes, we'll just show an alert
+            alert(`Thank you for your message, ${name}! I'll get back to you soon.`);
+
+            // Reset form
+            contactForm.reset();
+        });
+    </script>
+</body>
+
+</html>
